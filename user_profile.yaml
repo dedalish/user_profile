@@ -34,9 +34,9 @@ user:
     house_number: 10
     apartment_number: 5
   pets:
-    - breed: dog
+    - breed: french bulldog
       name: Rex
-      can_meow_or_bark: yes
-    - breed: cat
+      can_meow: no
+    - breed: english cat
       name: Whiskers
-      can_meow_or_bark: no
+      can_meow: yes
