@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
     - name: short-app
-      image: antonlarichev/conv-app:latest
+      image: antonlarichev/conv-app:1.2
       ports:
         - containerPort: 80
       resources:
