@@ -11,7 +11,7 @@ spec:
     metadata:
       name: conv-app
       labels:
-        components: frontend
+        app: short-app
     spec:
       containers:
         - name: short-app
