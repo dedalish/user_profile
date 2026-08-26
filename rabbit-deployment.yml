@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbit-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbit
+  template:
+    metadata:
+      labels:
+        app: rabbit
+    spec:
+      containers:
+        - name: rabbit
+          image: postgres:16.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 15672
+            - containerPort: 5672
+          env:
+            - name: RABBIT_DB
+              value: demo
+            - name: SEED_USERNAME
+              value: demo
+            - name: SEED_USER_PASSWORD
+              value: demo
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: rabbit-pvc
+              mountPath: /var/lib/rabbitmq
+              subPath: rabbit
+      volumes:
+        - name: rabbit-pvc
+          persistentVolumeClaim:
+            claimName: rabbit-pvc
