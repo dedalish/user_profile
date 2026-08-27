@@ -14,17 +14,15 @@ spec:
     spec:
       containers:
         - name: rabbit
-          image: postgres:16.0
+          image: rabbitmq:4.3.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 15672
             - containerPort: 5672
           env:
-            - name: RABBIT_DB
+            - name: RABBITMQ_DEFAULT_USER
               value: demo
-            - name: SEED_USERNAME
-              value: demo
-            - name: SEED_USER_PASSWORD
+            - name: RABBITMQ_DEFAULT_PASS
               value: demo
           resources:
             requests:
