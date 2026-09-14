@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: short-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      volumes:
+        - name: short-api-pvc
+          persistentVolumeClaim:
+            claimName: short-api-pvc
+      containers:
+      - name: short-api
+        image: antonlarichev/conv-api:1.0
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+          - containerPort: 3000
+        volumeMounts:
+          - name: short-api-pvc
+            mountPath: /opt/app/uploads
+        env:
+          - name: AMQP_EXCHANGE
+            valueFrom:
+              secretKeyRef:
+                name: shared-rabbit-secret
+                key: exchange
+          - name: AMQP_USER
+            valueFrom:
+              secretKeyRef:
+                name: shared-rabbit-secret
+                key: username
+          - name: AMQP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: shared-rabbit-secret
+                key: password
+          - name: AMQP_HOSTNAME
+            valueFrom:
+              secretKeyRef:
+                name: shared-rabbit-secret
+                key: hostname  

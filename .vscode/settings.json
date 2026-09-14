@@ -1,0 +1,7 @@
+{
+    "yaml.disableSchemaDetection": [],
+    "yaml.schemas": {
+        "kubernetes": "*.yaml",
+        "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.1-standalone-strict/all.json": "file:///Users/alish/projects/user_profile/rabbit-deployment.yml"
+    }
+}
