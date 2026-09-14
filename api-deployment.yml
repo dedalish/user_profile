@@ -52,3 +52,13 @@ spec:
               secretKeyRef:
                 name: shared-rabbit-secret
                 key: hostname  
+          - name: SEED_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: seed-secret
+                key: SEED_USERNAME
+          - name: SEED_USER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: seed-secret
+                key: SEED_USER_PASSWORD
