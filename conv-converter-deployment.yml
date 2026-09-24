@@ -4,7 +4,7 @@ metadata:
   name: converter-deployment
   namespace: conv-app-namespace
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: converter
@@ -13,9 +13,16 @@ spec:
       labels:
         app: converter
     spec:
+      volumes:
+        - name: conv-api-pvc
+          persistentVolumeClaim:
+            claimName: conv-api-pvc
       containers:
         - name: converter
           image: antonlarichev/conv-service:1.0
+          volumeMounts:
+            - name: conv-api-pvc
+              mountPath: /opt/app/uploads
           env:
             - name: AMQP_USER
               valueFrom:

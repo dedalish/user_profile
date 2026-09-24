@@ -4,4 +4,4 @@ metadata:
   name: conv-app-domain
   namespace: conv-app-namespace
 data:
-  VITE_DOMAIN: conv.test
+  VITE_DOMAIN: "http://conv.test" 
