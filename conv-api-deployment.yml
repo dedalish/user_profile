@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: short-api-deployment
+  name: conv-api-deployment
+  namespace: conv-app-namespace
 spec:
   replicas: 1
   selector:
@@ -13,11 +14,11 @@ spec:
         app: backend
     spec:
       volumes:
-        - name: short-api-pvc
+        - name: conv-api-pvc
           persistentVolumeClaim:
-            claimName: short-api-pvc
+            claimName: conv-api-pvc
       containers:
-      - name: short-api
+      - name: conv-api
         image: antonlarichev/conv-api:1.0
         resources:
           limits:
@@ -29,7 +30,7 @@ spec:
         ports:
           - containerPort: 3000
         volumeMounts:
-          - name: short-api-pvc
+          - name: conv-api-pvc
             mountPath: /opt/app/uploads
         env:
           - name: AMQP_EXCHANGE

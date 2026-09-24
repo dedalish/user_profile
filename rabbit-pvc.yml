@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: rabbit-pvc
+  namespace: conv-app-namespace
 spec:
   resources:
     requests:
