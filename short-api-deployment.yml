@@ -13,20 +13,16 @@ spec:
       labels:
         app: backend
     spec:
-      volumes:
-        - name: short-api-pvc
-          persistentVolumeClaim:
-            claimName: short-api-pvc
       containers:
       - name: short-api
-        image: antonlarichev/short-api:1.0
+        image: antonlarichev/short-api:v1.0
         resources:
           limits:
+            memory: "512Mi"
+            cpu: "1000m"
+          requests:
             memory: "256Mi"
             cpu: "500m"
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
         ports:
           - containerPort: 3000
         env:
@@ -35,4 +31,5 @@ spec:
               secretKeyRef:
                 name: short-api-secret
                 key: DATABASE_URL
+
 
