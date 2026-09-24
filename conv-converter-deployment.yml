@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: converter-deployment
+  namespace: conv-app-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: converter
+  template:
+    metadata:
+      labels:
+        app: converter
+    spec:
+      containers:
+        - name: converter
+          image: antonlarichev/conv-service:1.0
+          env:
+            - name: AMQP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: shared-rabbit-secret
+                  key: username
+            - name: AMQP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: shared-rabbit-secret
+                  key: password
+            - name: AMQP_EXCHANGE
+              valueFrom:
+                secretKeyRef:
+                  name: shared-rabbit-secret
+                  key: exchange
+            - name: AMQP_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: shared-rabbit-secret
+                  key: hostname
+            - name: AMQP_QUEUE
+              valueFrom:
+                secretKeyRef:
+                  name: shared-rabbit-secret
+                  key: queue
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"

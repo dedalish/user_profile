@@ -2,12 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: short-app-ingress
+  namespace: short-app-namespace
   annotations:
     nginx.ingress.kubernetes.io/add-base-url: "true"
 spec:
   ingressClassName: nginx
   rules:
-    - host: conv.test
+    - host: short.test
       http:
         paths:
           - path: "/"
@@ -24,4 +25,3 @@ spec:
                 name: short-api-cluster-ip
                 port:
                   number: 3000
-            
